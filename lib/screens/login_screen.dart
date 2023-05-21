@@ -1,9 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_new, sort_child_properties_last, use_build_context_synchronously, use_key_in_widget_constructors
+import 'package:examen_prueba/preferences/preferences.dart';
 import 'package:examen_prueba/providers/login_form_provider.dart';
 import 'package:examen_prueba/ui/input_decorations.dart';
 import 'package:examen_prueba/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+/*
+Clase que representa la ventana del Login donde se validan los datos para ser persistidos en caso deseado
+*/
 
 class LoginScreen extends StatelessWidget {
 
@@ -57,6 +62,7 @@ class _LoginFormState extends State<_LoginForm> {
         child: Column(
           children: [
             TextFormField( // CAMPO EMAIL
+              initialValue: Preferences.email,
               autocorrect: false, // Autocorrector desactivado
               keyboardType: TextInputType.emailAddress, // Teclado optimo para emails
               decoration: InputDecorations.authInputDecoration(
@@ -64,7 +70,9 @@ class _LoginFormState extends State<_LoginForm> {
                 labelText: 'Email',
                 prefixIcon: Icons.alternate_email
               ),
-              onChanged: (value) => loginForm.email = value, // Cambio del estado de la variable email
+              onChanged: (value) {
+                loginForm.email = value; // Cambio del estado de la variable email
+              },
               validator: (value) {
                 String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                 RegExp regExp = new RegExp(pattern);
@@ -75,6 +83,7 @@ class _LoginFormState extends State<_LoginForm> {
             ),
             SizedBox(height: 30),
             TextFormField( // CAMPO CONTRASENYA
+              initialValue: Preferences.password,
               autocorrect: false,
               obscureText: true, // Ocultar los caracteres de texto
               keyboardType: TextInputType.visiblePassword, // Teclado optimo para contrasenyas
@@ -83,11 +92,13 @@ class _LoginFormState extends State<_LoginForm> {
                 labelText: 'Password',
                 prefixIcon: Icons.lock_open
               ),
-              onChanged: (value) => loginForm.password = value, // Cambio del estado de la variable password
+              onChanged: (value) {
+                loginForm.password = value; // Cambio del estado de la variable password
+              },
               validator: (value) {
-                return (value != null && value.length >= 6)
+                return (value != null && value.length >= 5)
                   ? null
-                  : 'Password must have at least 6 characters';
+                  : 'Password must have at least 5 characters';
               },
             ),
             SizedBox(height: 30),
@@ -96,11 +107,12 @@ class _LoginFormState extends State<_LoginForm> {
               child: Row(
                 children: [
                   Checkbox(
-                    value: loginForm.remember,
+                    value: Preferences.remember,
                     checkColor: Colors.tealAccent[400],
                     onChanged: (value) {
                       setState(() {
-                        loginForm.remember = value!;
+                        Preferences.remember = value!;
+                        loginForm.remember = Preferences.remember;
                         print(value);
                       });
                     },
@@ -134,6 +146,17 @@ class _LoginFormState extends State<_LoginForm> {
                   FocusScope.of(context).unfocus();
 
                   if (loginForm.isValidForm()){
+
+                    if (loginForm.remember){ // Persistencia de los datos al hacer el Login
+                      Preferences.email = loginForm.email;
+                      Preferences.password = loginForm.password;
+                      Preferences.remember = loginForm.remember;
+                    } else{ // No persistencia de los datos al hacer el Login
+                      Preferences.email = "";
+                      Preferences.password = "";
+                      Preferences.remember = false;
+                    }
+
                     loginForm.isLoading = true;
                     // Simulacion de peticion
                     await Future.delayed(Duration(seconds: 2));

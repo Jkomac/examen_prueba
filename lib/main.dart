@@ -1,10 +1,15 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
+import 'package:examen_prueba/preferences/preferences.dart';
 import 'package:examen_prueba/screens/home_screen.dart';
 import 'package:examen_prueba/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();  // Para poder ejecutar metodos async antes de ejecutar el runApp()
+  await Preferences.init();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
