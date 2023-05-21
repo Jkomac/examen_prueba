@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_this, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+
+/*
+Representacion del fondo de la pantalla de Login
+*/
 
 class AuthBackground extends StatelessWidget {
   final Widget child; // SingleChildScrollView pasado por parametro
@@ -29,7 +32,7 @@ class _GreenBox extends StatelessWidget {
     final size = MediaQuery.of(context).size; // Extraccion del tamanyo de la pantalla
     return Container(
       width: double.infinity,
-      height: size.height * 0.4,
+      height: double.infinity,
       decoration: _greenBoxDecoration(),
       child: Stack(
         children: [
@@ -38,6 +41,11 @@ class _GreenBox extends StatelessWidget {
           Positioned(top: -30, right: -20, child: _Bubble()),
           Positioned(top: 150, right: 20, child: _Bubble()),
           Positioned(bottom: -50, left: 10, child: _Bubble()),
+          Positioned(bottom: 290, left: -50, child: _Bubble()),
+          Positioned(bottom: 350, left: 150, child: _Bubble()),
+          Positioned(bottom: 200, right: 40, child: _Bubble()),
+          Positioned(bottom: 120, left: 50, child: _Bubble()),
+          Positioned(bottom: -25, right: -50, child: _Bubble()),
         ],
       ),
     );
