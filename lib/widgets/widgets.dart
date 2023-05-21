@@ -1,0 +1,1 @@
+export 'package:examen_prueba/widgets/auth_background.dart';
