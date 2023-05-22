@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_new, sort_child_properties_last, use_build_context_synchronously, use_key_in_widget_constructors
 import 'package:examen_prueba/preferences/preferences.dart';
-import 'package:examen_prueba/providers/login_form_provider.dart';
 import 'package:examen_prueba/ui/input_decorations.dart';
 import 'package:examen_prueba/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../providers/providers.dart';
 
 /*
 Clase que representa la ventana del Login donde se validan los datos para ser persistidos en caso deseado
@@ -108,7 +108,8 @@ class _LoginFormState extends State<_LoginForm> {
                 children: [
                   Checkbox(
                     value: Preferences.remember,
-                    checkColor: Colors.tealAccent[400],
+                    fillColor: MaterialStateColor.resolveWith((states) => Color.fromRGBO(29, 233, 182, 1)),
+                    checkColor: Colors.black,
                     onChanged: (value) {
                       setState(() {
                         Preferences.remember = value!;

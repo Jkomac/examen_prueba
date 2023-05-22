@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import '../widgets/widgets.dart';
+
+/*
+Clase que refleja la ventana principal con una lista de gastos
+*/
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,14 +13,22 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inicio'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed:() => Navigator.pushReplacementNamed(context, 'login'), // Boton para volver atras (Login)
+        ),
+        title: Text('HomeScreen'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete_forever, color: Colors.black),
+            onPressed: () => null, 
+          ),
+        ],
       ),
-      body: Center(
-        child: Text('HomeScreen')
-      ),
+      body: CustomTiles(),
       floatingActionButton: FloatingActionButton( // Boton inferior derecho
-        child: Icon(Icons.save), // Icono
-        onPressed: () => null,
+        child: Icon(Icons.add), // Icono
+        onPressed: () => Navigator.pushNamed(context, 'newGasto'),
         ),
     );
   }
