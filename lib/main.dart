@@ -4,7 +4,7 @@ import 'package:examen_prueba/providers/login_form_provider.dart';
 import 'package:examen_prueba/screens/detail_screen.dart';
 import 'package:examen_prueba/screens/home_screen.dart';
 import 'package:examen_prueba/screens/login_screen.dart';
-import 'package:examen_prueba/screens/new_gasto_screen.dart';
+import 'package:examen_prueba/screens/new_user_screen.dart';
 import 'package:examen_prueba/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +17,8 @@ void main() async{
       create: (_) => LoginFormProvider(),
     ),
     ChangeNotifierProvider(
-      create: (_) => GastosService(),
-    )
+      create: (_) => UserService(),
+    ),
   ], child: MyApp(),)
   );
 }
@@ -29,12 +29,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Gastos App',
+      title: 'Users App',
       initialRoute: 'login',
       routes: {
         'login' : (_) => LoginScreen(),
         'home' : (_) => HomeScreen(),
-        'newGasto' : (_) => NewGastoScreen(),
+        'newUser' : (_) => NewUserScreen(),
         'detail' : (_) => DetailScreen(),
       },
       theme: ThemeData.light().copyWith( // Personaliza y ajusta fácilmente los temas sin reescribir todo el objeto completo.

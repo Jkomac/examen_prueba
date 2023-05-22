@@ -1,1 +1,1 @@
-export 'package:examen_prueba/services/gastos_service.dart';
+export 'package:examen_prueba/services/user_service.dart';

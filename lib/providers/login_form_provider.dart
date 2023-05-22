@@ -1,6 +1,10 @@
 // ignore_for_file: unnecessary_new, unused_field, prefer_final_fields
 import 'package:flutter/material.dart';
 
+/*
+Clase que gestiona los estados de los valores del Login
+*/
+
 class LoginFormProvider extends ChangeNotifier{
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
@@ -20,8 +24,6 @@ class LoginFormProvider extends ChangeNotifier{
   }
 
   bool isValidForm(){
-    print('Valor del formulario: ${formKey.currentState?.validate()}');
-    print('$email - $password');
     return formKey.currentState?.validate() ?? false; // En caso de null, devuelve falso
   }
 }

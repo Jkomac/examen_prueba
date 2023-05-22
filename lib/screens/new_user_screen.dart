@@ -1,20 +1,29 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
-import 'package:examen_prueba/models/models.dart';
-import 'package:examen_prueba/widgets/widgets.dart';
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, unused_local_variable, unnecessary_new
+import 'package:examen_prueba/services/services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/models.dart';
 import '../ui/input_decorations.dart';
+import '../widgets/widgets.dart';
 
 /*
-Clase donde se reflejan los detalles del user seleccionado
+Clase para la creacion de un nuevo User
 */
 
-class DetailScreen extends StatelessWidget {
+class NewUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final User user = ModalRoute.of(context)!.settings.arguments as User; // Recepcion del argumento de la anterior pantalla
+    TextEditingController _name = TextEditingController();
+    TextEditingController _email = TextEditingController();
+    TextEditingController _address = TextEditingController();
+    TextEditingController _phone = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Details'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed:() => Navigator.pop(context), // Boton para volver atras (Home)
+        ),
+        title: Text('New User'),
       ),
       body: Column(
         children: [
@@ -29,36 +38,48 @@ class DetailScreen extends StatelessWidget {
                 //   child: Image.asset(user.photo),
                 // ),
                 TextFormField( // USER
+                  controller: _name,
                   autocorrect: false, // Autocorrector desactivado
                   keyboardType: TextInputType.name,
                   decoration: InputDecorations.authInputDecoration(
                       hintText: 'User Name',
-                      labelText: '${user.name}',
+                      labelText: 'Name',
                       prefixIcon: Icons.person),
                 ),
                 TextFormField( // Email
+                  controller: _email,
                   autocorrect: false, // Autocorrector desactivado
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecorations.authInputDecoration(
                       hintText: 'Email',
-                      labelText: '${user.email}',
+                      labelText: 'Email',
                       prefixIcon: Icons.alternate_email),
                 ),
                 TextFormField( // Address
+                  controller: _address,
                   autocorrect: false, // Autocorrector desactivado
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecorations.authInputDecoration(
                       hintText: 'Address',
-                      labelText: '${user.address}',
+                      labelText: 'Address',
                       prefixIcon: Icons.home),
                 ),
                 TextFormField( // Phone
+                  controller: _phone,
                   autocorrect: false, // Autocorrector desactivado
                   keyboardType: TextInputType.number,
                   decoration: InputDecorations.authInputDecoration(
                       hintText: 'Phone',
-                      labelText: '${user.phone}',
+                      labelText: 'Phone',
                       prefixIcon: Icons.phone),
+                ),
+                TextFormField( // Photo
+                  autocorrect: false, // Autocorrector desactivado
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: 'Link Photo',
+                      labelText: 'Photo',
+                      prefixIcon: Icons.photo),
                 ),
                 SizedBox(height: 10)
               ],
@@ -67,8 +88,13 @@ class DetailScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.arrow_back),
-        onPressed: () => Navigator.pop(context),
+        child: Icon(Icons.save),
+        onPressed: () {
+          final userService = Provider.of<UserService>(context);
+          User user = new User(address: _address.text, email: _email.text, name: _name.text, phone: _phone.text);
+          //userService.crearUser();
+          Navigator.pop(context);
+        },
       ),
     );
   }

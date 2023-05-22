@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:examen_prueba/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/services.dart';
@@ -13,7 +14,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gastosService = Provider.of<GastosService>(context);
+    final userService = Provider.of<UserService>(context);
+    if (userService.isLoading) return LoadingScreen(); // Mostrar ventana de carga mientras se cargan los datos
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -21,17 +23,11 @@ class HomeScreen extends StatelessWidget {
           onPressed:() => Navigator.pushReplacementNamed(context, 'login'), // Boton para volver atras (Login)
         ),
         title: Text('HomeScreen'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.delete_forever, color: Colors.black),
-            onPressed: () => null, 
-          ),
-        ],
       ),
       body: CustomTiles(),
       floatingActionButton: FloatingActionButton( // Boton inferior derecho
         child: Icon(Icons.add), // Icono
-        onPressed: () => Navigator.pushNamed(context, 'newGasto'),
+        onPressed: () => Navigator.pushNamed(context, 'newUser'),
         ),
     );
   }
