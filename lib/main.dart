@@ -1,15 +1,26 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 import 'package:examen_prueba/preferences/preferences.dart';
+import 'package:examen_prueba/providers/login_form_provider.dart';
 import 'package:examen_prueba/screens/detail_screen.dart';
 import 'package:examen_prueba/screens/home_screen.dart';
 import 'package:examen_prueba/screens/login_screen.dart';
 import 'package:examen_prueba/screens/new_gasto_screen.dart';
+import 'package:examen_prueba/services/services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();  // Para poder ejecutar metodos async antes de ejecutar el runApp()
   await Preferences.init();
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (_) => LoginFormProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => GastosService(),
+    )
+  ], child: MyApp(),)
+  );
 }
 
 class MyApp extends StatelessWidget {

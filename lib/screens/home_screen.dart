@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/services.dart';
 import '../widgets/widgets.dart';
 
 /*
@@ -11,6 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gastosService = Provider.of<GastosService>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

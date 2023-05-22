@@ -1,4 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:examen_prueba/models/models.dart';
 import 'package:examen_prueba/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import '../ui/input_decorations.dart';
@@ -10,6 +11,7 @@ Clase donde se reflejan los detalles del gasto seleccionado
 class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Gasto gasto = ModalRoute.of(context)!.settings.arguments as Gasto; // Recepcion del argumento de la anterior pantalla
     return Scaffold(
       appBar: AppBar(
         title: Text('Details'),
@@ -26,7 +28,7 @@ class DetailScreen extends StatelessWidget {
                   keyboardType: TextInputType.name,
                   decoration: InputDecorations.authInputDecoration(
                       hintText: 'Expense Name',
-                      labelText: 'Expense',
+                      labelText: '${gasto.titol}',
                       prefixIcon: Icons.shopping_cart_outlined),
                 ),
                 SizedBox(height: 30),
@@ -35,7 +37,7 @@ class DetailScreen extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   decoration: InputDecorations.authInputDecoration(
                       hintText: 'Amount',
-                      labelText: 'Quantity',
+                      labelText: '${gasto.quantitat}',
                       prefixIcon: Icons.euro),
                 ),
                 SizedBox(height: 70),
